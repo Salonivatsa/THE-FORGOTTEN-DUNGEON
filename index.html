@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>The Forgotten Dungeon</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- INTRO -->
+    <div id="intro">
+        <canvas id="intro-canvas"></canvas>
+        <div class="intro-content">
+            <div class="rune-row">⚔ ✦ ⚔</div>
+            <div id="big-title">THE FORGOTTEN<br>DUNGEON</div>
+            <div class="intro-sub">A DARK FANTASY TEXT ADVENTURE</div>
+            <div class="intro-divider"></div>
+            <button id="start-btn" onclick="startGame()">ENTER THE DUNGEON</button>
+            <div class="rune-row" style="margin-top:20px;opacity:0.15">⛧ ᛞ ᚢ ᚾ ᚷ ᛖ ᛟ ᚾ ⛧</div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div id="app">
+        <!-- HEADER -->
+        <div id="hdr">
+            <div id="hdr-title">⚔ THE FORGOTTEN DUNGEON</div>
+            <div id="hdr-hud">
+                <div class="hud-item" id="v-hp">
+                    <span class="hud-lbl">HEALTH</span>
+                    <span class="hud-num" id="n-hp">100</span>
+                    <div class="hp-bar-bg">
+                        <div class="hp-bar-fill" id="hp-fill"
+                            style="width:100%;background:linear-gradient(90deg,#aa1818,#ff3030)"></div>
+                    </div>
+                </div>
+                <div class="hud-item" id="v-score">
+                    <span class="hud-lbl">SCORE</span>
+                    <span class="hud-num" id="n-score">0</span>
+                </div>
+                <div class="hud-item" id="v-steps">
+                    <span class="hud-lbl">STEPS</span>
+                    <span class="hud-num" id="n-steps">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE -->
+        <div id="scene-wrap">
+            <canvas id="scene-cv"></canvas>
+            <canvas id="fog-cv"></canvas>
+            <div id="vignette"></div>
+            <div id="dmg-flash"></div>
+            <div id="room-label">
+                <div id="room-name-txt">DUNGEON ENTRANCE</div>
+                <div id="room-desc-short">The journey begins here...</div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div id="sidebar">
+            <div class="sb-block">
+                <div class="sb-head">EXITS</div>
+                <div id="exits-list"></div>
+            </div>
+            <div class="sb-block" style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding-bottom:0">
+                <div class="sb-head">INVENTORY</div>
+                <div id="inv-wrap">
+                    <div id="inv-empty">— khaali haath —</div>
+                </div>
+            </div>
+            <div id="qacts">
+                <button class="qa" onclick="run('look')">look</button>
+                <button class="qa" onclick="run('inventory')">bag</button>
+                <button class="qa" onclick="run('use torch')">torch</button>
+                <button class="qa" onclick="run('open chest')">chest</button>
+                <button class="qa red" onclick="run('fight dragon')">⚔ fight</button>
+                <button class="qa red" onclick="run('take treasure')">💎 loot</button>
+                <button class="qa" onclick="run('help')">help</button>
+                <button class="qa rst" onclick="run('restart')">↺</button>
+            </div>
+        </div>
+
+        <!-- OUTPUT -->
+        <div id="out-wrap"></div>
+
+        <!-- INPUT -->
+        <div id="inp-row">
+            <span id="inp-prompt">⟩_</span>
+            <input id="inp" type="text" placeholder="command likho... (help — sab dekhne ke liye)" autocomplete="off"
+                spellcheck="false" />
+            <button id="inp-btn" onclick="submit()">ENTER</button>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal">
+        <div id="modal-box">
+            <div id="modal-title">EK CHOICE KARO</div>
+            <div id="modal-line"></div>
+            <div id="modal-body">Dungeon ke darwaze par do cheezein padi hain.<br>Sirf ek le sakte ho — aur yahi tumhari
+                poori kahani badal degi.</div>
+            <div id="modal-choices">
+                <div class="mc" onclick="makeChoice('torch')">
+                    <span class="mc-icon">🔦</span>
+                    <div class="mc-name">TORCH</div>
+                    <div class="mc-pro">✓ Andheri jagahon par roshni</div>
+                    <div class="mc-pro">✓ Grand Hall safely explore</div>
+                    <div class="mc-con">✗ Library ka secret miss</div>
+                    <div class="mc-con">✗ Spell Book nahi milegi</div>
+                </div>
+                <div class="mc" onclick="makeChoice('map')">
+                    <span class="mc-icon">🗺️</span>
+                    <div class="mc-name">OLD MAP</div>
+                    <div class="mc-pro">✓ Library mein Spell Book milegi</div>
+                    <div class="mc-pro">✓ Dragon ke against POWERFUL</div>
+                    <div class="mc-con">✗ Andhera zyada damage karega</div>
+                    <div class="mc-con">✗ Kuch rooms dangerous honge</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EFFECTS -->
+    <div id="notifs"></div>
+    <div id="ptcl"></div>
+    <div id="screen-flash"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
